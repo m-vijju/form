@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style3.css">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background-color: #87CEEB;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: black;
+            /* Text color */
+        }
+        
+        .regform {
+            width: 500px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        
+        .regform h3 {
+            text-align: center;
+            color: #E29578;
+            margin-bottom: 20px;
+        }
+        
+        .regform .input {
+            margin-bottom: 15px;
+        }
+        
+        .regform .textlabel {
+            display: block;
+            color: #83C5BE;
+            margin-bottom: 5px;
+        }
+        
+        .regform input {
+            width: calc(100% - 22px);
+            /* Adjusted width to account for the border */
+            font-size: 1.2em;
+            border: 1px solid #006D77;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin: 5px 0px;
+            background-color: transparent;
+            color: black;
+            /* Text color */
+        }
+        
+        .regform input:focus {
+            background-color: #83C5BE;
+        }
+        
+        .regform .error-message {
+            color: #FF6347;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .regform .gender {
+            margin-bottom: 15px;
+        }
+        
+        .regform .gender label {
+            display: inline-block;
+            margin-right: 20px;
+            color: #83C5BE;
+            cursor: pointer;
+        }
+        
+        .regform .gender input[type="radio"] {
+            display: none;
+        }
+        
+        .regform .gender input[type="radio"]+label:before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #006D77;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        
+        .regform .gender input[type="radio"]:checked+label:before {
+            background-color: #006D77;
+        }
+        
+        .regform .btn {
+            text-align: center;
+        }
+        
+        .regform button {
+            background-color: #83C5BE;
+            font-size: 20px;
+            color: white;
+            margin-top: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid #006D77;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        
+        .regform button:hover {
+            background-color: #6FB9AE;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="regform">
+        <h3>Registration Form</h3>
+        <form id="registrationForm">
+            <div class="input">
+                <label class="textlabel" for="name">User Name</label>
+                <input type="text" id="name" name="name">
+                <div class="error-message" id="nameError"></div>
+            </div>
+            <div class="input">
+                <label class="textlabel" for="email">Email</label>
+                <input type="email" name="email" id="email">
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="input">
+                <label class="textlabel" for="pwd">Password</label>
+                <input type="password" name="pwd" id="pwd">
+                <div class="error-message" id="pwdError"></div>
+            </div>
+            <div class="gender">
+                <span class="textlabel">Gender</span>
+                <input type="radio" name="gender" id="male" value="male">
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="female" value="female">
+                <label for="female">Female</label>
+                <div class="error-message" id="genderError"></div>
+            </div>
+            <div class="btn">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            validateForm();
+        });
+
+        function validateForm() {
+            var name = document.getElementById("name").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var password = document.getElementById("pwd").value.trim();
+            var gender = document.querySelector('input[name="gender"]:checked');
+
+            var nameError = document.getElementById("nameError");
+            var emailError = document.getElementById("emailError");
+            var pwdError = document.getElementById("pwdError");
+            var genderError = document.getElementById("genderError");
+
+            nameError.textContent = "";
+            emailError.textContent = "";
+            pwdError.textContent = "";
+            genderError.textContent = "";
+
+            if (name === "") {
+                nameError.textContent = "Please enter your name";
+            }
+
+            if (email === "") {
+                emailError.textContent = "Please enter your email";
+            } else if (email.indexOf('@') === -1) {
+                emailError.textContent = "Email must contain '@' symbol";
+            }
+
+            if (password === "") {
+                pwdError.textContent = "Please enter your password";
+            } else if (password.length < 8) {
+                pwdError.textContent = "Password must be at least 8 characters long";
+            }
+
+            if (!gender) {
+                genderError.textContent = "Please select your gender";
+            }
+
+            if (name && email && password && gender) {
+                alert("Form submitted successfully!");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
